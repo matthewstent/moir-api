@@ -14,7 +14,12 @@ app.get("/dmx", (req, res) => {
     checkValid(req.query.g) &&
     checkValid(req.query.b)
   ) {
-    successHTML = `<h3>Your request was successful</h3><h3 style="display:inline;padding:8px; border: 1px solid black;color:rgb(${req.query.r},${req.query.g},${req.query.b})">
+    let lightColor =
+      parseInt(req.query.r) + parseInt(req.query.g) + parseInt(req.query.b) >
+      600
+        ? "rgb(50,50,50)"
+        : "rgb(255,255,255)";
+    successHTML = `<h3>Your request was successful</h3><h3 style="display:inline;background-color:${lightColor};padding:8px; border: 1px solid black;color:rgb(${req.query.r},${req.query.g},${req.query.b})">
     Set Light ${req.query.light} to RGB Value (${req.query.r},${req.query.g},${req.query.b})
     </h3>`;
   } else {
