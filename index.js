@@ -8,7 +8,12 @@ app.use(cors());
 
 app.get("/dmx", (req, res) => {
   let successHTML;
-  if (req.query.light && req.query.r && req.query.g && req.query.b) {
+  if (
+    checkValid(req.query.light) &&
+    checkValid(req.query.r) &&
+    checkValid(req.query.g) &&
+    checkValid(req.query.b)
+  ) {
     successHTML = `<h3>Your request was successful</h3><h3 style="display:inline;padding:8px; border: 1px solid black;color:rgb(${req.query.r},${req.query.g},${req.query.b})">
     Set Light ${req.query.light} to RGB Value (${req.query.r},${req.query.g},${req.query.b})
     </h3>`;
@@ -58,3 +63,11 @@ app.listen(port, () => {
 });
 
 // http://ipaddress:port?light=1&r=255&g=0&b=0
+
+function checkValid(l) {
+  if (!isNaN(l) && l >= 0 && l <= 255) {
+    return true;
+  } else {
+    return false;
+  }
+}
