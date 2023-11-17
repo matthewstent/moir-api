@@ -16,7 +16,7 @@ app.get("/dmx", (req, res) => {
     successHTML = `<h3>Your request was invalid</h3>`;
   }
 
-  let baseURL = `"https://${req.hostname}moir/${
+  let baseURL = `"https://${req.hostname}/moir${
     req.originalUrl.split("?")[0]
   }?light=1&r=255&g=0&b=125"`;
   let html = `<html><body>
