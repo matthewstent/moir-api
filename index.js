@@ -22,7 +22,7 @@ app.get("/dmx", (req, res) => {
         ? "rgb(50,50,50)"
         : "rgb(255,255,255)";
     successHTML = `<h3>Your request was successful</h3><h3 style="display:inline;background-color:${lightColor};padding:8px; border: 1px solid black;color:rgb(${req.query.r},${req.query.g},${req.query.b})">
-    Set Light ${req.query.light} to RGB Value (${req.query.r},${req.query.g},${req.query.b})
+    Set Light ${req.query.light} to RGB Value ( ${req.query.r} , ${req.query.g} , ${req.query.b} )
     </h3>`;
   } else {
     successHTML = `<h3>Your request was invalid</h3>`;
@@ -58,7 +58,7 @@ ${successHTML}
 <p>
 e.g.<br/>
 ${baseURL}<br/>
-Would set DMX Light 1 to <span style="color:rgb(255,0,125);">RGB Value (255,0,125)</span>
+Would set DMX Light 1 to <span style="color:rgb(255,0,125);">RGB Value ( 255 , 0 , 125 )</span>
 </p>
 
     </body></html>`;
