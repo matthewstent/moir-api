@@ -8,12 +8,14 @@ app.use(cors());
 
 app.get("/dmx", (req, res) => {
   let successHTML;
+  let reqGood = false;
   if (
     checkValid(req.query.light) &&
     checkValid(req.query.r) &&
     checkValid(req.query.g) &&
     checkValid(req.query.b)
   ) {
+    reqGood = true;
     let lightColor =
       parseInt(req.query.r) + parseInt(req.query.g) + parseInt(req.query.b) >
       600
@@ -60,6 +62,9 @@ Would set DMX Light 1 to <span style="color:rgb(255,0,125);">RGB Value (255,0,12
 </p>
 
     </body></html>`;
+  if (!reqGood) {
+    res.status(400);
+  }
   res.send(html);
 });
 
