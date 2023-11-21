@@ -6,6 +6,10 @@ const querystring = require("querystring");
 
 app.use(cors());
 
+app.get("/terminal", (req, res) => {
+  res.send("WIP");
+});
+
 app.get("/dmx", (req, res) => {
   let successHTML;
   let reqGood = false;
@@ -13,7 +17,8 @@ app.get("/dmx", (req, res) => {
     checkValid(req.query.light) &&
     checkValid(req.query.r) &&
     checkValid(req.query.g) &&
-    checkValid(req.query.b)
+    checkValid(req.query.b) &&
+    checkValid(req.query.w)
   ) {
     reqGood = true;
     let lightColor =
@@ -22,7 +27,7 @@ app.get("/dmx", (req, res) => {
         ? "rgb(50,50,50)"
         : "rgb(255,255,255)";
     successHTML = `<h3>Your request was successful</h3><h3 style="display:inline;background-color:${lightColor};padding:8px; border: 1px solid black;color:rgb(${req.query.r},${req.query.g},${req.query.b})">
-    Set Light ${req.query.light} to RGB Value ( ${req.query.r} , ${req.query.g} , ${req.query.b} )
+    Set Light ${req.query.light} to RGBW Value ( ${req.query.r} , ${req.query.g} , ${req.query.b},  ${req.query.w} )
     </h3>`;
   } else {
     successHTML = `<h3>Your request was invalid</h3>`;
@@ -30,7 +35,7 @@ app.get("/dmx", (req, res) => {
 
   let baseURL = `"https://${req.hostname}/moir${
     req.originalUrl.split("?")[0]
-  }?light=1&r=255&g=0&b=125"`;
+  }?light=1&r=255&g=0&b=125&w=255"`;
   let html = `<html><body>
 <h3>DMX HTTP ENDPOINT TEST</h3>
 
@@ -53,12 +58,15 @@ ${successHTML}
 <tr>
 <td>b</td><td><i>int</i> Blue value 0-255</td>
 </tr>
+<tr>
+<td>w</td><td><i>int</i> White value 0-255</td>
+</tr>
 
 </table>
 <p>
 e.g.<br/>
 ${baseURL}<br/>
-Would set DMX Light 1 to <span style="color:rgb(255,0,125);">RGB Value ( 255 , 0 , 125 )</span>
+Would set DMX Light 1 to <span style="color:rgb(255,0,125);">RGBW Value ( 255 , 0 , 125, 255)</span>
 </p>
 
     </body></html>`;
